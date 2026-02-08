@@ -38,9 +38,8 @@ dbt_profiles_dir = os.environ.get("DBT_PROFILES_DIR", "/home/airflow/.dbt")
 
 
 # DAG configuration constants
-PATH_TO_DATA_SCRIPT = "/opt/airflow/dags/include/row_data_generation/extract_spotify_data.py" # path to script for generating data from spotify API
 TARGET_ENV = Variable.get("TARGET_ENV", default_var="dev")
-ADMIN_EMAIL = Variable.get("admin_email", default_var="admin@example.com")
+ADMIN_EMAIL = Variable.get("ADMIN_EMAIL")
 
 
 
@@ -77,12 +76,8 @@ def airflow_dbt_spotify_pipeline():
         2. Transform data into staging tables.
         3. Create analytical models and run test using dbt
         """
-
-    # # Task 1: Ingest Spotify data to MinIO
-    # ingest_spotify_data_to_minio = BashOperator(
-    #     task_id="ingest_spotify_data",
-    #     bash_command=f"python {PATH_TO_DATA_SCRIPT}"
-    # )
+    
+    
     @task(task_id="ingest_spotify_data_to_minio")
     def ingest_spotify_data_to_minio():
      
