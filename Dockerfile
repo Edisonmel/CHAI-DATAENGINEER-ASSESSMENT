@@ -8,7 +8,7 @@ ENV PIP_USER=false
 
 
 # Install Airflow runtime deps into system Python
-RUN python -m pip install --no-cache-dir asyncpg faker minio
+RUN python -m pip install --no-cache-dir asyncpg faker minio spotipy
 
 # Create isolated venv for dbt + cosmos
 RUN python -m venv $VENV_PATH && \
