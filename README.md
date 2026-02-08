@@ -163,6 +163,17 @@ The pipeline is designed with **end-to-end data validation**:
 
 ---
 
+## Sample screenshoot Demostrating project in action
+
+Airflow worflow with dbt models
+![Data Architecture Diagram](images/airflow_in_action.png)
+
+Minio interface with data uploaded
+![Data Architecture Diagram](images/minio_in_action.png)
+
+Clean data into reporting model
+![Data Architecture Diagram](images/sample_mart_model.png)
+
 ## Conclusion
 
 This project demonstrates a production ready, data pipeline that follows best practices in ingestion, validation, transformation, and analytics.  
