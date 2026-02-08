@@ -1,0 +1,187 @@
+version: 2
+
+models:
+
+  - name: mart_artist_performance
+    description: >
+      Aggregated artist-level performance metrics. This model provides key KPIs
+      per artist such as number of albums, number of tracks, and popularity
+      statistics. It supports business questions like:
+      - Who are the top-performing artists?
+      - Which artists have the largest music catalog?
+      - Which artists produce the most popular tracks?
+
+    columns:
+      - name: artist_id
+        description: Unique identifier of the artist.
+        tests:
+          - not_null
+          - unique
+
+      - name: artist_name
+        description: Artist display name.
+        tests:
+          - not_null
+
+      - name: total_albums
+        description: Total number of albums released by the artist.
+        tests:
+          - not_null
+
+      - name: total_tracks
+        description: Total number of tracks associated with the artist.
+        tests:
+          - not_null
+
+      - name: avg_track_popularity
+        description: Average popularity score across all tracks of the artist.
+
+      - name: max_track_popularity
+        description: Maximum popularity score achieved by any track of the artist.
+
+      - name: total_minutes_of_music
+        description: Total duration of all tracks by the artist in minutes.
+        tests:
+          - not_null
+
+
+  - name: mart_album_performance
+    description: >
+      Album-level analytical model describing performance and catalog metrics
+      per album. This model answers:
+      - Which albums contain the most tracks?
+      - Which albums are the most popular?
+      - How do album releases perform over time?
+
+    columns:
+      - name: album_id
+        description: Unique identifier of the album.
+        tests:
+          - not_null
+          - unique
+
+      - name: album_name
+        description: Album name.
+        tests:
+          - not_null
+
+      - name: main_artist_id
+        description: Identifier of the main artist who released the album.
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('mart_artist_performance')
+                field: artist_id
+
+      - name: artist_name
+        description: Name of the main artist.
+
+      - name: release_date
+        description: Album release date.
+
+      - name: album_type
+        description: Type of album (album, single, compilation).
+        tests:
+          - not_null
+
+      - name: total_tracks
+        description: Number of tracks on the album.
+        tests:
+          - not_null
+
+      - name: avg_track_popularity
+        description: Average popularity score of tracks within the album.
+
+      - name: max_track_popularity
+        description: Maximum popularity score among tracks in the album.
+
+      - name: album_minutes
+        description: Total duration of the album in minutes.
+        tests:
+          - not_null
+
+  - name: mart_track_performance
+    description: >
+      Track-level analytical model containing enriched attributes for each track.
+      Supports questions like:
+      - What are the most popular tracks?
+      - How long are popular tracks on average?
+
+    columns:
+      - name: track_id
+        description: Unique identifier of the track.
+        tests:
+          - not_null
+          - unique
+
+      - name: track_name
+        description: Track title.
+        tests:
+          - not_null
+
+      - name: album_id
+        description: Identifier of the album the track belongs to.
+        tests:
+          - not_null
+
+      - name: album_name
+        description: Album name associated with the track.
+
+      - name: artist_id
+        description: Identifier of the artist who performed the track.
+        tests:
+          - not_null
+
+      - name: artist_name
+        description: Artist name associated with the track.
+
+      - name: popularity
+        description: Popularity score assigned by Spotify.
+
+      - name: duration_seconds
+        description: Track duration expressed in seconds.
+        tests:
+          - not_null
+
+      - name: popularity_bucket
+        description: >
+          Categorization of track popularity into hit (>=80),
+          medium (50–79), or low (<50).
+
+        tests:
+          - accepted_values:
+              values: ['hit', 'medium', 'low']
+
+
+  - name: mart_catalog_overview
+    description: >
+      High-level catalog metrics summarizing the Spotify dataset.
+      Provides global statistics for reporting dashboards and trend monitoring:
+      - Size of the music catalog
+      - Average popularity
+
+    columns:
+      - name: total_artists
+        description: Total number of distinct artists in the catalog.
+        tests:
+          - not_null
+
+      - name: total_albums
+        description: Total number of distinct albums in the catalog.
+        tests:
+          - not_null
+
+      - name: total_tracks
+        description: Total number of distinct tracks in the catalog.
+        tests:
+          - not_null
+
+      - name: avg_track_minutes
+        description: Average track duration in minutes.
+
+      - name: avg_track_popularity
+        description: Average popularity score across all tracks.
+
+      - name: pct_explicit_tracks
+        description: Percentage of tracks marked as explicit.

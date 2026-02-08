@@ -1,0 +1,158 @@
+version: 2
+
+sources:
+  - name: spotify_staging
+    description: >
+      Raw staging schema containing Spotify data extracted from the API and
+      loaded into Postgres. These tables represent the normalized raw entities
+      (artists, albums, and tracks) before transformation into marts.
+    schema: staging
+
+    tables:
+
+      - name: stg_artists
+        description: >
+          Stores unique Spotify artists with basic metadata. Each row represents
+          one artist as returned by the Spotify API. This table is the parent
+          entity for albums and tracks.
+        columns:
+          - name: artist_id
+            description: >
+              Unique identifier for the artist as provided by Spotify.
+              Serves as the primary key and parent key for albums and tracks.
+            tests:
+              - not_null
+              - unique
+
+          - name: name
+            description: Display name of the artist on Spotify.
+            tests:
+              - not_null
+
+          - name: created_at
+            description: >
+              Date when this record was ingested into the data platform.
+              Derived from the source file upload date.
+            tests:
+              - not_null
+
+
+      - name: stg_albums
+        description: >
+          Stores album-level information from Spotify. Each row represents
+          a unique album released by an artist. Albums are linked to artists
+          via main_artist_id.
+        columns:
+          - name: album_id
+            description: >
+              Unique identifier for the album as provided by Spotify.
+              Acts as the primary key for the albums table.
+            tests:
+              - not_null
+              - unique
+
+          - name: main_artist_id
+            description: >
+              Foreign key referencing the primary artist who released the album.
+              Links to stg_artists.artist_id.
+            tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('spotify_staging', 'stg_artists')
+                    field: artist_id
+
+          - name: name
+            description: >
+              Album title as displayed on Spotify.
+            tests:
+              - not_null
+
+          - name: release_date
+            description: >
+              Official release date of the album. When only a year is available
+              from Spotify, the date is normalized to the first day of the year.
+          
+          - name: release_date_precision
+            description: >
+              Indicates the precision of the release_date value returned by Spotify
+              (e.g. 'year', 'month', or 'day').
+
+          - name: total_tracks
+            description: >
+              Total number of tracks contained in the album.
+            tests:
+              - dbt_utils.accepted_range:
+                  arguments:
+                    min_value: 0
+
+          - name: album_type
+            description: >
+              Type of album as defined by Spotify (e.g. album, single, compilation).
+
+          - name: created_at
+            description: >
+              Date when the album record was ingested into the data platform.
+              Used for data lineage and auditing.
+
+
+      - name: stg_tracks
+        description: >
+          Stores individual track-level data from Spotify. Each row represents
+          a single track belonging to an album and performed by an artist.
+        columns:
+          - name: track_id
+            description: >
+              Unique identifier for the track as provided by Spotify.
+              Acts as the primary key for the tracks table.
+            tests:
+              - not_null
+              - unique
+
+          - name: artist_id
+            description: Foreign key referencing the artist who performed the track. Links to stg_artists.artist_id.
+              
+            tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('spotify_staging', 'stg_artists')
+                    field: artist_id
+
+          - name: album_id
+            description: Foreign key referencing the album to which the track belongs.Links to stg_albums.album_id.
+            tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('spotify_staging', 'stg_albums')
+                    field: album_id
+
+          - name: name
+            description: Track title as displayed on Spotify.
+            tests:
+              - not_null
+
+          - name: popularity
+            description: >
+              Popularity score of the track as defined by Spotify, typically
+              ranging from 0 to 100.
+
+          - name: duration_ms
+            description: Duration of the track in milliseconds.
+            tests:
+              - dbt_utils.accepted_range:
+                  arguments:
+                    min_value: 0
+
+          - name: track_number
+            description: Position of the track within its album.
+
+          - name: disc_number
+            description: Disc number within a multi-disc album.
+
+          - name: is_local
+            description: Indicates whether the track is a local file or a Spotify-hosted track.
+
+          - name: created_at
+            description: Date when the track record was ingested into the data platform.
