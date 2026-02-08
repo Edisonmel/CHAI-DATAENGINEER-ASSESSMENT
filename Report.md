@@ -46,6 +46,13 @@ The pipeline is fully orchestrated by **Apache Airflow**, with all services runn
 
 ---
 
+### Staging models ERD Diagram
+![Data Architecture Diagram](images/staging_ERD.png)
+
+### Mart (Reporting ) models ERD Diagram
+![Data Architecture Diagram](images/mart_ERD.png)
+
+
 ## 3. Optimization Strategies Applied
 
 ### Object Storage with MinIO
