@@ -124,10 +124,19 @@ Key technologies used in this project:
 
 All dependencies are pre-installed within the Docker images defined in the project.
 
-The following diagram provides a high-level overview of how the components of the project are interconnected.
+### High-level Architecture
+
+The following diagram provides high-level overview of how the components of the project are interconnected.
 ![Data Architecture Diagram](images/data_architecture_diagram.jpg)
 
 ---
+
+### Staging models ERD Diagram
+![Data Architecture Diagram](images/staging_ERD.png)
+
+### Mart (Reporting ) models ERD Diagram
+![Data Architecture Diagram](images/mart_ERD.png)
+
 
 ## 5. Data Source
 
