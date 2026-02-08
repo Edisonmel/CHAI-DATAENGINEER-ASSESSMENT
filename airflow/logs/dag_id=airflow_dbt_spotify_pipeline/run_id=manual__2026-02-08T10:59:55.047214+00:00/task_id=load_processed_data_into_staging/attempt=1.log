@@ -1,0 +1,19 @@
+[2026-02-08T11:01:00.672+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: airflow_dbt_spotify_pipeline.load_processed_data_into_staging manual__2026-02-08T10:59:55.047214+00:00 [queued]>
+[2026-02-08T11:01:00.675+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: airflow_dbt_spotify_pipeline.load_processed_data_into_staging manual__2026-02-08T10:59:55.047214+00:00 [queued]>
+[2026-02-08T11:01:00.676+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 2
+[2026-02-08T11:01:00.680+0000] {taskinstance.py:2191} INFO - Executing <Task(_PythonDecoratedOperator): load_processed_data_into_staging> on 2026-02-08 10:59:55.047214+00:00
+[2026-02-08T11:01:00.682+0000] {standard_task_runner.py:60} INFO - Started process 2726 to run task
+[2026-02-08T11:01:00.684+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', '***_dbt_spotify_pipeline', 'load_processed_data_into_staging', 'manual__2026-02-08T10:59:55.047214+00:00', '--job-id', '302', '--raw', '--subdir', 'DAGS_FOLDER/sportify_pipeline_dag.py', '--cfg-path', '/tmp/tmp74732bym']
+[2026-02-08T11:01:00.686+0000] {standard_task_runner.py:88} INFO - Job 302: Subtask load_processed_data_into_staging
+[2026-02-08T11:01:00.707+0000] {task_command.py:423} INFO - Running <TaskInstance: airflow_dbt_spotify_pipeline.load_processed_data_into_staging manual__2026-02-08T10:59:55.047214+00:00 [running]> on host 63d90b64f023
+[2026-02-08T11:01:00.749+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='edison@inkomoko.com' AIRFLOW_CTX_DAG_OWNER='INKOMOKO' AIRFLOW_CTX_DAG_ID='***_dbt_spotify_pipeline' AIRFLOW_CTX_TASK_ID='load_processed_data_into_staging' AIRFLOW_CTX_EXECUTION_DATE='2026-02-08T10:59:55.047214+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-02-08T10:59:55.047214+00:00'
+[2026-02-08T11:01:00.753+0000] {base.py:83} INFO - Using connection ID 'postgres_spotify_conn' for task execution.
+[2026-02-08T11:01:00.761+0000] {sportify_pipeline_dag.py:235} INFO - Loaded 9 records into stg_artists.
+[2026-02-08T11:01:00.764+0000] {base.py:83} INFO - Using connection ID 'postgres_spotify_conn' for task execution.
+[2026-02-08T11:01:00.771+0000] {sportify_pipeline_dag.py:242} INFO - Loaded 29 records into stg_albums.
+[2026-02-08T11:01:00.774+0000] {base.py:83} INFO - Using connection ID 'postgres_spotify_conn' for task execution.
+[2026-02-08T11:01:00.781+0000] {sportify_pipeline_dag.py:249} INFO - Loaded 48 records into stg_tracks.
+[2026-02-08T11:01:00.782+0000] {python.py:201} INFO - Done. Returned value was: None
+[2026-02-08T11:01:00.786+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=***_dbt_spotify_pipeline, task_id=load_processed_data_into_staging, execution_date=20260208T105955, start_date=20260208T110100, end_date=20260208T110100
+[2026-02-08T11:01:00.818+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-02-08T11:01:00.833+0000] {taskinstance.py:3280} INFO - 1 downstream tasks scheduled from follow-on schedule check

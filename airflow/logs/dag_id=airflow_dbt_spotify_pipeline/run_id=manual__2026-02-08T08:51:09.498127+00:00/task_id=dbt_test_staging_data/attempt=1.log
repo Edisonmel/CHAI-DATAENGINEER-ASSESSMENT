@@ -1,0 +1,78 @@
+[2026-02-08T08:51:16.879+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: airflow_dbt_spotify_pipeline.dbt_test_staging_data manual__2026-02-08T08:51:09.498127+00:00 [queued]>
+[2026-02-08T08:51:16.884+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: airflow_dbt_spotify_pipeline.dbt_test_staging_data manual__2026-02-08T08:51:09.498127+00:00 [queued]>
+[2026-02-08T08:51:16.884+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2026-02-08T08:51:16.889+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): dbt_test_staging_data> on 2026-02-08 08:51:09.498127+00:00
+[2026-02-08T08:51:16.891+0000] {standard_task_runner.py:60} INFO - Started process 4131 to run task
+[2026-02-08T08:51:16.893+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', '***_dbt_spotify_pipeline', 'dbt_test_staging_data', 'manual__2026-02-08T08:51:09.498127+00:00', '--job-id', '159', '--raw', '--subdir', 'DAGS_FOLDER/sportify_pipeline_dag.py', '--cfg-path', '/tmp/tmp0pg8_90k']
+[2026-02-08T08:51:16.894+0000] {standard_task_runner.py:88} INFO - Job 159: Subtask dbt_test_staging_data
+[2026-02-08T08:51:16.916+0000] {task_command.py:423} INFO - Running <TaskInstance: airflow_dbt_spotify_pipeline.dbt_test_staging_data manual__2026-02-08T08:51:09.498127+00:00 [running]> on host 359fb843449d
+[2026-02-08T08:51:16.950+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='***_dbt_spotify_pipeline' AIRFLOW_CTX_TASK_ID='dbt_test_staging_data' AIRFLOW_CTX_EXECUTION_DATE='2026-02-08T08:51:09.498127+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-02-08T08:51:09.498127+00:00'
+[2026-02-08T08:51:16.951+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-02-08T08:51:16.951+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'dbt test --select source:* --target dev']
+[2026-02-08T08:51:16.955+0000] {subprocess.py:86} INFO - Output:
+[2026-02-08T08:51:17.738+0000] {subprocess.py:93} INFO - [0m08:51:17  Running with dbt=1.11.3
+[2026-02-08T08:51:17.891+0000] {subprocess.py:93} INFO - [0m08:51:17  Registered adapter: postgres=1.10.0
+[2026-02-08T08:51:18.019+0000] {subprocess.py:93} INFO - [0m08:51:18  Unable to do partial parsing because config vars, config profile, or config target have changed
+[2026-02-08T08:51:18.846+0000] {subprocess.py:93} INFO - [0m08:51:18  [[33mWARNING[0m][MissingArgumentsPropertyInGenericTestDeprecation]: Deprecated
+[2026-02-08T08:51:18.847+0000] {subprocess.py:93} INFO - functionality
+[2026-02-08T08:51:18.847+0000] {subprocess.py:93} INFO - Found top-level arguments to test `accepted_values` defined on
+[2026-02-08T08:51:18.847+0000] {subprocess.py:93} INFO - 'mart_track_performance' in package 'spotify_dbt_data_pipeline'
+[2026-02-08T08:51:18.847+0000] {subprocess.py:93} INFO - (models/mart/shema.yaml). Arguments to generic tests should be nested under the
+[2026-02-08T08:51:18.848+0000] {subprocess.py:93} INFO - `arguments` property.
+[2026-02-08T08:51:19.105+0000] {subprocess.py:93} INFO - [0m08:51:19  Found 4 models, 42 data tests, 3 sources, 579 macros
+[2026-02-08T08:51:19.107+0000] {subprocess.py:93} INFO - [0m08:51:19
+[2026-02-08T08:51:19.107+0000] {subprocess.py:93} INFO - [0m08:51:19  Concurrency: 10 threads (target='dev')
+[2026-02-08T08:51:19.107+0000] {subprocess.py:93} INFO - [0m08:51:19
+[2026-02-08T08:51:19.201+0000] {subprocess.py:93} INFO - [0m08:51:19  1 of 18 START test dbt_utils_source_accepted_range_spotify_staging_stg_albums_total_tracks__0  [RUN]
+[2026-02-08T08:51:19.202+0000] {subprocess.py:93} INFO - [0m08:51:19  2 of 18 START test dbt_utils_source_accepted_range_spotify_staging_stg_tracks_duration_ms__0  [RUN]
+[2026-02-08T08:51:19.202+0000] {subprocess.py:93} INFO - [0m08:51:19  3 of 18 START test source_not_null_spotify_staging_stg_albums_album_id ......... [RUN]
+[2026-02-08T08:51:19.202+0000] {subprocess.py:93} INFO - [0m08:51:19  4 of 18 START test source_not_null_spotify_staging_stg_albums_main_artist_id ... [RUN]
+[2026-02-08T08:51:19.203+0000] {subprocess.py:93} INFO - [0m08:51:19  5 of 18 START test source_not_null_spotify_staging_stg_albums_name ............. [RUN]
+[2026-02-08T08:51:19.203+0000] {subprocess.py:93} INFO - [0m08:51:19  6 of 18 START test source_not_null_spotify_staging_stg_artists_artist_id ....... [RUN]
+[2026-02-08T08:51:19.204+0000] {subprocess.py:93} INFO - [0m08:51:19  7 of 18 START test source_not_null_spotify_staging_stg_artists_created_at ...... [RUN]
+[2026-02-08T08:51:19.204+0000] {subprocess.py:93} INFO - [0m08:51:19  8 of 18 START test source_not_null_spotify_staging_stg_artists_name ............ [RUN]
+[2026-02-08T08:51:19.204+0000] {subprocess.py:93} INFO - [0m08:51:19  9 of 18 START test source_not_null_spotify_staging_stg_tracks_album_id ......... [RUN]
+[2026-02-08T08:51:19.205+0000] {subprocess.py:93} INFO - [0m08:51:19  10 of 18 START test source_not_null_spotify_staging_stg_tracks_artist_id ....... [RUN]
+[2026-02-08T08:51:19.361+0000] {subprocess.py:93} INFO - [0m08:51:19  2 of 18 PASS dbt_utils_source_accepted_range_spotify_staging_stg_tracks_duration_ms__0  [[32mPASS[0m in 0.16s]
+[2026-02-08T08:51:19.363+0000] {subprocess.py:93} INFO - [0m08:51:19  1 of 18 PASS dbt_utils_source_accepted_range_spotify_staging_stg_albums_total_tracks__0  [[32mPASS[0m in 0.16s]
+[2026-02-08T08:51:19.372+0000] {subprocess.py:93} INFO - [0m08:51:19  3 of 18 PASS source_not_null_spotify_staging_stg_albums_album_id ............... [[32mPASS[0m in 0.17s]
+[2026-02-08T08:51:19.375+0000] {subprocess.py:93} INFO - [0m08:51:19  4 of 18 PASS source_not_null_spotify_staging_stg_albums_main_artist_id ......... [[32mPASS[0m in 0.17s]
+[2026-02-08T08:51:19.378+0000] {subprocess.py:93} INFO - [0m08:51:19  5 of 18 PASS source_not_null_spotify_staging_stg_albums_name ................... [[32mPASS[0m in 0.17s]
+[2026-02-08T08:51:19.379+0000] {subprocess.py:93} INFO - [0m08:51:19  6 of 18 PASS source_not_null_spotify_staging_stg_artists_artist_id ............. [[32mPASS[0m in 0.17s]
+[2026-02-08T08:51:19.381+0000] {subprocess.py:93} INFO - [0m08:51:19  7 of 18 PASS source_not_null_spotify_staging_stg_artists_created_at ............ [[32mPASS[0m in 0.17s]
+[2026-02-08T08:51:19.383+0000] {subprocess.py:93} INFO - [0m08:51:19  8 of 18 PASS source_not_null_spotify_staging_stg_artists_name .................. [[32mPASS[0m in 0.18s]
+[2026-02-08T08:51:19.385+0000] {subprocess.py:93} INFO - [0m08:51:19  9 of 18 PASS source_not_null_spotify_staging_stg_tracks_album_id ............... [[32mPASS[0m in 0.18s]
+[2026-02-08T08:51:19.385+0000] {subprocess.py:93} INFO - [0m08:51:19  10 of 18 PASS source_not_null_spotify_staging_stg_tracks_artist_id ............. [[32mPASS[0m in 0.18s]
+[2026-02-08T08:51:19.390+0000] {subprocess.py:93} INFO - [0m08:51:19  11 of 18 START test source_not_null_spotify_staging_stg_tracks_name ............ [RUN]
+[2026-02-08T08:51:19.390+0000] {subprocess.py:93} INFO - [0m08:51:19  12 of 18 START test source_not_null_spotify_staging_stg_tracks_track_id ........ [RUN]
+[2026-02-08T08:51:19.394+0000] {subprocess.py:93} INFO - [0m08:51:19  13 of 18 START test source_relationships_spotify_staging_stg_albums_main_artist_id__artist_id__source_spotify_staging_stg_artists_  [RUN]
+[2026-02-08T08:51:19.395+0000] {subprocess.py:93} INFO - [0m08:51:19  14 of 18 START test source_relationships_spotify_staging_stg_tracks_album_id__album_id__source_spotify_staging_stg_albums_  [RUN]
+[2026-02-08T08:51:19.397+0000] {subprocess.py:93} INFO - [0m08:51:19  15 of 18 START test source_relationships_spotify_staging_stg_tracks_artist_id__artist_id__source_spotify_staging_stg_artists_  [RUN]
+[2026-02-08T08:51:19.397+0000] {subprocess.py:93} INFO - [0m08:51:19  16 of 18 START test source_unique_spotify_staging_stg_albums_album_id .......... [RUN]
+[2026-02-08T08:51:19.398+0000] {subprocess.py:93} INFO - [0m08:51:19  17 of 18 START test source_unique_spotify_staging_stg_artists_artist_id ........ [RUN]
+[2026-02-08T08:51:19.399+0000] {subprocess.py:93} INFO - [0m08:51:19  18 of 18 START test source_unique_spotify_staging_stg_tracks_track_id .......... [RUN]
+[2026-02-08T08:51:19.490+0000] {subprocess.py:93} INFO - [0m08:51:19  11 of 18 PASS source_not_null_spotify_staging_stg_tracks_name .................. [[32mPASS[0m in 0.10s]
+[2026-02-08T08:51:19.495+0000] {subprocess.py:93} INFO - [0m08:51:19  12 of 18 PASS source_not_null_spotify_staging_stg_tracks_track_id .............. [[32mPASS[0m in 0.10s]
+[2026-02-08T08:51:19.497+0000] {subprocess.py:93} INFO - [0m08:51:19  13 of 18 PASS source_relationships_spotify_staging_stg_albums_main_artist_id__artist_id__source_spotify_staging_stg_artists_  [[32mPASS[0m in 0.10s]
+[2026-02-08T08:51:19.501+0000] {subprocess.py:93} INFO - [0m08:51:19  15 of 18 PASS source_relationships_spotify_staging_stg_tracks_artist_id__artist_id__source_spotify_staging_stg_artists_  [[32mPASS[0m in 0.10s]
+[2026-02-08T08:51:19.502+0000] {subprocess.py:93} INFO - [0m08:51:19  14 of 18 PASS source_relationships_spotify_staging_stg_tracks_album_id__album_id__source_spotify_staging_stg_albums_  [[32mPASS[0m in 0.10s]
+[2026-02-08T08:51:19.503+0000] {subprocess.py:93} INFO - [0m08:51:19  16 of 18 PASS source_unique_spotify_staging_stg_albums_album_id ................ [[32mPASS[0m in 0.10s]
+[2026-02-08T08:51:19.504+0000] {subprocess.py:93} INFO - [0m08:51:19  17 of 18 PASS source_unique_spotify_staging_stg_artists_artist_id .............. [[32mPASS[0m in 0.10s]
+[2026-02-08T08:51:19.506+0000] {subprocess.py:93} INFO - [0m08:51:19  18 of 18 PASS source_unique_spotify_staging_stg_tracks_track_id ................ [[32mPASS[0m in 0.10s]
+[2026-02-08T08:51:19.520+0000] {subprocess.py:93} INFO - [0m08:51:19
+[2026-02-08T08:51:19.520+0000] {subprocess.py:93} INFO - [0m08:51:19  Finished running 18 data tests in 0 hours 0 minutes and 0.41 seconds (0.41s).
+[2026-02-08T08:51:19.557+0000] {subprocess.py:93} INFO - [0m08:51:19
+[2026-02-08T08:51:19.558+0000] {subprocess.py:93} INFO - [0m08:51:19  [32mCompleted successfully[0m
+[2026-02-08T08:51:19.558+0000] {subprocess.py:93} INFO - [0m08:51:19
+[2026-02-08T08:51:19.558+0000] {subprocess.py:93} INFO - [0m08:51:19  Done. PASS=18 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=18
+[2026-02-08T08:51:19.559+0000] {subprocess.py:93} INFO - [0m08:51:19  [[33mWARNING[0m][DeprecationsSummary]: Deprecated functionality
+[2026-02-08T08:51:19.559+0000] {subprocess.py:93} INFO - Summary of encountered deprecations:
+[2026-02-08T08:51:19.559+0000] {subprocess.py:93} INFO - - MissingArgumentsPropertyInGenericTestDeprecation: 1 occurrence
+[2026-02-08T08:51:19.559+0000] {subprocess.py:93} INFO - To see all deprecation instances instead of just the first occurrence of each,
+[2026-02-08T08:51:19.560+0000] {subprocess.py:93} INFO - run command again with the `--show-all-deprecations` flag. You may also need to
+[2026-02-08T08:51:19.560+0000] {subprocess.py:93} INFO - run with `--no-partial-parse` as some deprecations are only encountered during
+[2026-02-08T08:51:19.560+0000] {subprocess.py:93} INFO - parsing.
+[2026-02-08T08:51:19.750+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2026-02-08T08:51:19.769+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=***_dbt_spotify_pipeline, task_id=dbt_test_staging_data, execution_date=20260208T085109, start_date=20260208T085116, end_date=20260208T085119
+[2026-02-08T08:51:19.782+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-02-08T08:51:19.803+0000] {taskinstance.py:3280} INFO - 1 downstream tasks scheduled from follow-on schedule check

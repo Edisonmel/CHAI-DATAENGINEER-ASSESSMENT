@@ -1,0 +1,19 @@
+[2026-02-07T18:33:56.594+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: airflow_dbt_spotify_pipeline.prepare_staging_data manual__2026-02-07T18:33:52.040717+00:00 [queued]>
+[2026-02-07T18:33:56.598+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: airflow_dbt_spotify_pipeline.prepare_staging_data manual__2026-02-07T18:33:52.040717+00:00 [queued]>
+[2026-02-07T18:33:56.598+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2026-02-07T18:33:56.604+0000] {taskinstance.py:2191} INFO - Executing <Task(_PythonDecoratedOperator): prepare_staging_data> on 2026-02-07 18:33:52.040717+00:00
+[2026-02-07T18:33:56.607+0000] {standard_task_runner.py:60} INFO - Started process 996 to run task
+[2026-02-07T18:33:56.610+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', '***_dbt_spotify_pipeline', 'prepare_staging_data', 'manual__2026-02-07T18:33:52.040717+00:00', '--job-id', '60', '--raw', '--subdir', 'DAGS_FOLDER/sportify_pipeline_dag.py', '--cfg-path', '/tmp/tmpglf4tx8o']
+[2026-02-07T18:33:56.611+0000] {standard_task_runner.py:88} INFO - Job 60: Subtask prepare_staging_data
+[2026-02-07T18:33:56.637+0000] {task_command.py:423} INFO - Running <TaskInstance: airflow_dbt_spotify_pipeline.prepare_staging_data manual__2026-02-07T18:33:52.040717+00:00 [running]> on host 778b8342bcc9
+[2026-02-07T18:33:56.671+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='***_dbt_spotify_pipeline' AIRFLOW_CTX_TASK_ID='prepare_staging_data' AIRFLOW_CTX_EXECUTION_DATE='2026-02-07T18:33:52.040717+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-02-07T18:33:52.040717+00:00'
+[2026-02-07T18:33:56.848+0000] {sportify_pipeline_dag.py:75} INFO - Processing object: spotify_data/artists/artists_2026-02-07.json
+[2026-02-07T18:33:56.850+0000] {sportify_pipeline_dag.py:84} INFO - Sucessfully transformed 1 artists
+[2026-02-07T18:33:56.851+0000] {sportify_pipeline_dag.py:75} INFO - Processing object: spotify_data/tracks/tracks_2026-02-07.json
+[2026-02-07T18:33:56.855+0000] {logging_mixin.py:188} INFO - {'track_id': '0bYg9bo50gSsH3LtXe2SQn', 'name': 'All I Want for Christmas Is You', 'artist_id': '4iHNK0tOyZPYnBU7nGAgpQ', 'album_id': '61ulfFSmmxMhc2wCdmdMkN', 'popularity': 87, 'duration_ms': 241562, 'track_number': 2, 'disc_number': 1, 'is_local': False}
+[2026-02-07T18:33:56.855+0000] {logging_mixin.py:188} INFO - {'album_id': '61ulfFSmmxMhc2wCdmdMkN', 'main_artist_id': '4iHNK0tOyZPYnBU7nGAgpQ', 'name': 'Merry Christmas', 'release_date': '1994-10-28', 'release_date_precision': 'day', 'total_tracks': 10, 'album_type': 'album'}
+[2026-02-07T18:33:56.855+0000] {sportify_pipeline_dag.py:93} INFO - Sucessfully transformed 48 tracks list and 29 Albums
+[2026-02-07T18:33:56.856+0000] {python.py:201} INFO - Done. Returned value was: True
+[2026-02-07T18:33:56.867+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=***_dbt_spotify_pipeline, task_id=prepare_staging_data, execution_date=20260207T183352, start_date=20260207T183356, end_date=20260207T183356
+[2026-02-07T18:33:56.905+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-02-07T18:33:56.918+0000] {taskinstance.py:3280} INFO - 1 downstream tasks scheduled from follow-on schedule check

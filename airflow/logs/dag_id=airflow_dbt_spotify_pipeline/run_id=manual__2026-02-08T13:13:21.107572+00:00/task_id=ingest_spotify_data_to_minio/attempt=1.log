@@ -1,0 +1,24 @@
+[2026-02-08T13:13:21.817+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: airflow_dbt_spotify_pipeline.ingest_spotify_data_to_minio manual__2026-02-08T13:13:21.107572+00:00 [queued]>
+[2026-02-08T13:13:21.821+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: airflow_dbt_spotify_pipeline.ingest_spotify_data_to_minio manual__2026-02-08T13:13:21.107572+00:00 [queued]>
+[2026-02-08T13:13:21.821+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 2
+[2026-02-08T13:13:21.826+0000] {taskinstance.py:2191} INFO - Executing <Task(_PythonDecoratedOperator): ingest_spotify_data_to_minio> on 2026-02-08 13:13:21.107572+00:00
+[2026-02-08T13:13:21.830+0000] {standard_task_runner.py:60} INFO - Started process 796 to run task
+[2026-02-08T13:13:21.832+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', '***_dbt_spotify_pipeline', 'ingest_spotify_data_to_minio', 'manual__2026-02-08T13:13:21.107572+00:00', '--job-id', '368', '--raw', '--subdir', 'DAGS_FOLDER/sportify_pipeline_dag.py', '--cfg-path', '/tmp/tmp6avfqc3u']
+[2026-02-08T13:13:21.834+0000] {standard_task_runner.py:88} INFO - Job 368: Subtask ingest_spotify_data_to_minio
+[2026-02-08T13:13:21.865+0000] {task_command.py:423} INFO - Running <TaskInstance: airflow_dbt_spotify_pipeline.ingest_spotify_data_to_minio manual__2026-02-08T13:13:21.107572+00:00 [running]> on host 3343c7c174ef
+[2026-02-08T13:13:21.906+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='edison@inkomoko.com' AIRFLOW_CTX_DAG_OWNER='INKOMOKO' AIRFLOW_CTX_DAG_ID='***_dbt_spotify_pipeline' AIRFLOW_CTX_TASK_ID='ingest_spotify_data_to_minio' AIRFLOW_CTX_EXECUTION_DATE='2026-02-08T13:13:21.107572+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-02-08T13:13:21.107572+00:00'
+[2026-02-08T13:13:21.912+0000] {sportify_pipeline_dag.py:102} INFO - Found 48 track IDs.
+[2026-02-08T13:13:21.912+0000] {sportify_pipeline_dag.py:107} INFO - Fetching tracks data from Spotify API...
+[2026-02-08T13:13:21.912+0000] {ingest_spotify_data.py:59} INFO - Start Pulling Tracks data at https://api.spotify.com/v1/tracks?ids=0bYg9bo50gSsH3LtXe2SQn,3PIDciSFdrQxSQSihim3hN,5EGPf0nqO7vEIwsOX6Er98,4EI8VuxUuIHKfafU72emqz,3RSpK5Y0y5tl25qvssrwJ6,6xkryXuiZU360Lngd4sx13,1f2lkuLldqRzvaFjJdjGXX,2VkuxjlbnbaBiWYpdBGVol,1IUtgwxLYzDVd41EgbKUjX,3B7FO3kJ5kv3mX7yiaB7sT,2FRnf9qhLbvw8fu4IBXx78,0ikz6tENMONtK6qGkOrU3c,5Qicor4jFNgZQxSf6UxEzw,5hXEcqQhEjfZdbIZLO8mf2,73OZT1XgLleDwperqGjWH4,6tASfEUyB7lE2r6DLzURji,0PhU6i6Kei6x0CH3jocvA3,2gG7E5OZi5D5QLRIctv63z,54ujCgwE4qTm8iRFmw0S5j,5AhRNIjYPBleR1lfHphcrE,2EjXfH91m7f8HiJN1yQg97,09OojFvtrM9YRzRjnXqJjA,6yBdCzVK3vP8uDfkLGS8E9,0MKnGJzNdEqOscI6xu9R3m,6Eh1XqjaOX2BVL0hVCnwb0,60jQTAr2OkFcV4SWSRz3st,7xrpNuqDgFlf10X93CwixY,5JccvAiwcZ7n3urnXqWPsG,4LJcNiq2pBb8OeqrGdBJQw,2oGrSrg08RVLHeqFH1eaHZ,3it2BvJfyhPEWF3kD2TZJ1,6rqn19AqjcM5wgI1hCYciJ,5dLwdEJAFzjQbeRrDL5uzo,0zLmRVBlZJ3IJTkChSXkBp,27fIrMVmHLxP2Hot6qVxsy,47CctmFYrX4htszDZCVaLM,1FZP4hpT4iuLaOb5HpriLq,2rMK6uQxoSGYWOXtzPUY4Z,19fbN84F5YHDyv8dyTbCO8,2368r2D53RhpfIlLBHAXLl,0lizgQ7Qw35od7CYaoMBZb,51ZQ1vr10ffzbwIjDCwqm4,2O3MQ6H3gjrIWDcpeTrikT,1oFAF1hdPOickyHgbuRjyX,76FZM38RC8XaAjJ77CVTNe,7xoUc6faLbCqZO6fQEYprd,6ocbgoVGwYJhOv1GgI9NsF,44ONERBHALxftQNWq6dmyd
+[2026-02-08T13:13:22.895+0000] {sportify_pipeline_dag.py:112} INFO - Fetched 48 tracks successfully.
+[2026-02-08T13:13:22.897+0000] {sportify_pipeline_dag.py:126} INFO - Uploading tracks data to MinIO...
+[2026-02-08T13:13:22.898+0000] {ingest_spotify_data.py:109} INFO - Starting MinIO upload process...
+[2026-02-08T13:13:23.200+0000] {ingest_spotify_data.py:127} INFO - S3 client created for endpoint 'minio:9000' (secure=False).
+[2026-02-08T13:13:23.211+0000] {ingest_spotify_data.py:87} INFO - MinIO bucket 'row-data' already exists.
+[2026-02-08T13:13:23.211+0000] {ingest_spotify_data.py:131} INFO - Bucket 'row-data' verified/created.
+[2026-02-08T13:13:23.239+0000] {ingest_spotify_data.py:144} INFO - Uploaded 'tracks' JSON to MinIO bucket 'row-data' at 'spotify_data/tracks/tracks_2026-02-08.json'.
+[2026-02-08T13:13:23.240+0000] {sportify_pipeline_dag.py:136} INFO - Tracks data uploaded successfully to 'spotify_data/tracks/tracks_2026-02-08.json'
+[2026-02-08T13:13:23.240+0000] {python.py:201} INFO - Done. Returned value was: None
+[2026-02-08T13:13:23.245+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=***_dbt_spotify_pipeline, task_id=ingest_spotify_data_to_minio, execution_date=20260208T131321, start_date=20260208T131321, end_date=20260208T131323
+[2026-02-08T13:13:23.260+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-02-08T13:13:23.276+0000] {taskinstance.py:3280} INFO - 1 downstream tasks scheduled from follow-on schedule check

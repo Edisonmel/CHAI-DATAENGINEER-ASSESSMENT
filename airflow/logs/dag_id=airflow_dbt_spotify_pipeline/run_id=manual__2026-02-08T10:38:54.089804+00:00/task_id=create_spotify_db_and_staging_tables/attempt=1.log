@@ -1,0 +1,128 @@
+[2026-02-08T10:38:59.277+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: airflow_dbt_spotify_pipeline.create_spotify_db_and_staging_tables manual__2026-02-08T10:38:54.089804+00:00 [queued]>
+[2026-02-08T10:38:59.280+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: airflow_dbt_spotify_pipeline.create_spotify_db_and_staging_tables manual__2026-02-08T10:38:54.089804+00:00 [queued]>
+[2026-02-08T10:38:59.281+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 2
+[2026-02-08T10:38:59.286+0000] {taskinstance.py:2191} INFO - Executing <Task(PostgresOperator): create_spotify_db_and_staging_tables> on 2026-02-08 10:38:54.089804+00:00
+[2026-02-08T10:38:59.289+0000] {standard_task_runner.py:60} INFO - Started process 2009 to run task
+[2026-02-08T10:38:59.291+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', '***_dbt_spotify_pipeline', 'create_spotify_db_and_staging_tables', 'manual__2026-02-08T10:38:54.089804+00:00', '--job-id', '269', '--raw', '--subdir', 'DAGS_FOLDER/sportify_pipeline_dag.py', '--cfg-path', '/tmp/tmp4949xkbv']
+[2026-02-08T10:38:59.292+0000] {standard_task_runner.py:88} INFO - Job 269: Subtask create_spotify_db_and_staging_tables
+[2026-02-08T10:38:59.315+0000] {task_command.py:423} INFO - Running <TaskInstance: airflow_dbt_spotify_pipeline.create_spotify_db_and_staging_tables manual__2026-02-08T10:38:54.089804+00:00 [running]> on host 63d90b64f023
+[2026-02-08T10:38:59.348+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='edison@inkomoko.com' AIRFLOW_CTX_DAG_OWNER='INKOMOKO' AIRFLOW_CTX_DAG_ID='***_dbt_spotify_pipeline' AIRFLOW_CTX_TASK_ID='create_spotify_db_and_staging_tables' AIRFLOW_CTX_EXECUTION_DATE='2026-02-08T10:38:54.089804+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-02-08T10:38:54.089804+00:00'
+[2026-02-08T10:38:59.348+0000] {sql.py:276} INFO - Executing: -- Create schema for staging tables
+CREATE SCHEMA IF NOT EXISTS staging;
+
+-- Creating Schema for analytics models
+CREATE SCHEMA IF NOT EXISTS mart;
+
+-- Artists
+CREATE TABLE IF NOT EXISTS staging.stg_artists (
+    artist_id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    created_at DATE
+);
+
+CREATE INDEX IF NOT EXISTS idx_stg_artists_name
+ON staging.stg_artists(name);
+
+-- Albums
+CREATE TABLE IF NOT EXISTS staging.stg_albums (
+    album_id TEXT PRIMARY KEY,
+    main_artist_id TEXT NOT NULL,
+    name TEXT NOT NULL,
+    release_date DATE,
+    release_date_precision TEXT,
+    total_tracks INTEGER CHECK (total_tracks >= 0),
+    album_type TEXT NOT NULL,
+    created_at DATE,
+
+    CONSTRAINT fk_album_artist
+        FOREIGN KEY (main_artist_id)
+        REFERENCES staging.stg_artists(artist_id)
+        ON DELETE RESTRICT
+);
+
+CREATE INDEX IF NOT EXISTS idx_stg_albums_release_date
+ON staging.stg_albums(release_date);
+
+-- Tracks
+CREATE TABLE IF NOT EXISTS staging.stg_tracks (
+    track_id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    artist_id TEXT NOT NULL,
+    album_id TEXT NOT NULL,
+    popularity INTEGER,
+    duration_ms INTEGER CHECK (duration_ms >= 0),
+    track_number INTEGER CHECK (track_number >= 1),
+    disc_number INTEGER CHECK (disc_number >= 1),
+    is_local BOOLEAN NOT NULL,
+    created_at DATE,
+
+    CONSTRAINT fk_track_artist
+        FOREIGN KEY (artist_id)
+        REFERENCES staging.stg_artists(artist_id),
+
+    CONSTRAINT fk_track_album
+        FOREIGN KEY (album_id)
+        REFERENCES staging.stg_albums(album_id)
+);
+[2026-02-08T10:38:59.352+0000] {base.py:83} INFO - Using connection ID 'postgres_spotify_conn' for task execution.
+[2026-02-08T10:38:59.356+0000] {base.py:83} INFO - Using connection ID 'postgres_spotify_conn' for task execution.
+[2026-02-08T10:38:59.365+0000] {sql.py:450} INFO - Running statement: -- Create schema for staging tables
+CREATE SCHEMA IF NOT EXISTS staging;
+
+-- Creating Schema for analytics models
+CREATE SCHEMA IF NOT EXISTS mart;
+
+-- Artists
+CREATE TABLE IF NOT EXISTS staging.stg_artists (
+    artist_id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    created_at DATE
+);
+
+CREATE INDEX IF NOT EXISTS idx_stg_artists_name
+ON staging.stg_artists(name);
+
+-- Albums
+CREATE TABLE IF NOT EXISTS staging.stg_albums (
+    album_id TEXT PRIMARY KEY,
+    main_artist_id TEXT NOT NULL,
+    name TEXT NOT NULL,
+    release_date DATE,
+    release_date_precision TEXT,
+    total_tracks INTEGER CHECK (total_tracks >= 0),
+    album_type TEXT NOT NULL,
+    created_at DATE,
+
+    CONSTRAINT fk_album_artist
+        FOREIGN KEY (main_artist_id)
+        REFERENCES staging.stg_artists(artist_id)
+        ON DELETE RESTRICT
+);
+
+CREATE INDEX IF NOT EXISTS idx_stg_albums_release_date
+ON staging.stg_albums(release_date);
+
+-- Tracks
+CREATE TABLE IF NOT EXISTS staging.stg_tracks (
+    track_id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    artist_id TEXT NOT NULL,
+    album_id TEXT NOT NULL,
+    popularity INTEGER,
+    duration_ms INTEGER CHECK (duration_ms >= 0),
+    track_number INTEGER CHECK (track_number >= 1),
+    disc_number INTEGER CHECK (disc_number >= 1),
+    is_local BOOLEAN NOT NULL,
+    created_at DATE,
+
+    CONSTRAINT fk_track_artist
+        FOREIGN KEY (artist_id)
+        REFERENCES staging.stg_artists(artist_id),
+
+    CONSTRAINT fk_track_album
+        FOREIGN KEY (album_id)
+        REFERENCES staging.stg_albums(album_id)
+);, parameters: None
+[2026-02-08T10:38:59.373+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=***_dbt_spotify_pipeline, task_id=create_spotify_db_and_staging_tables, execution_date=20260208T103854, start_date=20260208T103859, end_date=20260208T103859
+[2026-02-08T10:38:59.384+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-02-08T10:38:59.398+0000] {taskinstance.py:3280} INFO - 1 downstream tasks scheduled from follow-on schedule check

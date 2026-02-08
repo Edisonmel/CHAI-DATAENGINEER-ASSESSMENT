@@ -1,0 +1,30 @@
+[2026-02-07T18:23:05.234+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: airflow_dbt_spotify_pipeline.generate_spotify_data manual__2026-02-07T18:23:04.180141+00:00 [queued]>
+[2026-02-07T18:23:05.238+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: airflow_dbt_spotify_pipeline.generate_spotify_data manual__2026-02-07T18:23:04.180141+00:00 [queued]>
+[2026-02-07T18:23:05.238+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2026-02-07T18:23:05.245+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): generate_spotify_data> on 2026-02-07 18:23:04.180141+00:00
+[2026-02-07T18:23:05.248+0000] {standard_task_runner.py:60} INFO - Started process 677 to run task
+[2026-02-07T18:23:05.251+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', '***_dbt_spotify_pipeline', 'generate_spotify_data', 'manual__2026-02-07T18:23:04.180141+00:00', '--job-id', '44', '--raw', '--subdir', 'DAGS_FOLDER/sportify_pipeline_dag.py', '--cfg-path', '/tmp/tmp_gh014ob']
+[2026-02-07T18:23:05.252+0000] {standard_task_runner.py:88} INFO - Job 44: Subtask generate_spotify_data
+[2026-02-07T18:23:05.278+0000] {task_command.py:423} INFO - Running <TaskInstance: airflow_dbt_spotify_pipeline.generate_spotify_data manual__2026-02-07T18:23:04.180141+00:00 [running]> on host 778b8342bcc9
+[2026-02-07T18:23:05.316+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='***_dbt_spotify_pipeline' AIRFLOW_CTX_TASK_ID='generate_spotify_data' AIRFLOW_CTX_EXECUTION_DATE='2026-02-07T18:23:04.180141+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-02-07T18:23:04.180141+00:00'
+[2026-02-07T18:23:05.317+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-02-07T18:23:05.318+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'python /opt/***/dags/include/row_data_generation/extract_spotify_data.py']
+[2026-02-07T18:23:05.323+0000] {subprocess.py:86} INFO - Output:
+[2026-02-07T18:23:05.832+0000] {subprocess.py:93} INFO - Traceback (most recent call last):
+[2026-02-07T18:23:05.832+0000] {subprocess.py:93} INFO -   File "/opt/***/dags/include/row_data_generation/extract_spotify_data.py", line 276, in <module>
+[2026-02-07T18:23:05.832+0000] {subprocess.py:93} INFO -     main()
+[2026-02-07T18:23:05.833+0000] {subprocess.py:93} INFO -   File "/opt/***/dags/include/row_data_generation/extract_spotify_data.py", line 198, in main
+[2026-02-07T18:23:05.833+0000] {subprocess.py:93} INFO -     bearer_token =  Variable.ge("SPOTIFY_TOKEN")
+[2026-02-07T18:23:05.833+0000] {subprocess.py:93} INFO - AttributeError: type object 'Variable' has no attribute 'ge'. Did you mean: 'get'?
+[2026-02-07T18:23:05.895+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2026-02-07T18:23:05.904+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/operators/bash.py", line 212, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2026-02-07T18:23:05.905+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=***_dbt_spotify_pipeline, task_id=generate_spotify_data, execution_date=20260207T182304, start_date=20260207T182305, end_date=20260207T182305
+[2026-02-07T18:23:05.912+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 44 for task generate_spotify_data (Bash command failed. The command returned a non-zero exit code 1.; 677)
+[2026-02-07T18:23:05.945+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-02-07T18:23:05.960+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

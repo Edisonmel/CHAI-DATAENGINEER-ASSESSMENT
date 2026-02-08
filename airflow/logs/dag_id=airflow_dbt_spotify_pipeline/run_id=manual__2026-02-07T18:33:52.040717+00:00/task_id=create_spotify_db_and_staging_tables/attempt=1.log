@@ -1,0 +1,152 @@
+[2026-02-07T18:33:57.612+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: airflow_dbt_spotify_pipeline.create_spotify_db_and_staging_tables manual__2026-02-07T18:33:52.040717+00:00 [queued]>
+[2026-02-07T18:33:57.616+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: airflow_dbt_spotify_pipeline.create_spotify_db_and_staging_tables manual__2026-02-07T18:33:52.040717+00:00 [queued]>
+[2026-02-07T18:33:57.617+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2026-02-07T18:33:57.622+0000] {taskinstance.py:2191} INFO - Executing <Task(PostgresOperator): create_spotify_db_and_staging_tables> on 2026-02-07 18:33:52.040717+00:00
+[2026-02-07T18:33:57.624+0000] {standard_task_runner.py:60} INFO - Started process 998 to run task
+[2026-02-07T18:33:57.628+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', '***_dbt_spotify_pipeline', 'create_spotify_db_and_staging_tables', 'manual__2026-02-07T18:33:52.040717+00:00', '--job-id', '61', '--raw', '--subdir', 'DAGS_FOLDER/sportify_pipeline_dag.py', '--cfg-path', '/tmp/tmprhu8868e']
+[2026-02-07T18:33:57.628+0000] {standard_task_runner.py:88} INFO - Job 61: Subtask create_spotify_db_and_staging_tables
+[2026-02-07T18:33:57.651+0000] {task_command.py:423} INFO - Running <TaskInstance: airflow_dbt_spotify_pipeline.create_spotify_db_and_staging_tables manual__2026-02-07T18:33:52.040717+00:00 [running]> on host 778b8342bcc9
+[2026-02-07T18:33:57.688+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='***_dbt_spotify_pipeline' AIRFLOW_CTX_TASK_ID='create_spotify_db_and_staging_tables' AIRFLOW_CTX_EXECUTION_DATE='2026-02-07T18:33:52.040717+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-02-07T18:33:52.040717+00:00'
+[2026-02-07T18:33:57.690+0000] {sql.py:276} INFO - Executing: -- Create Database
+CREATE DATABASE spotify_db;
+
+CREATE SCHEMA IF NOT EXISTS staging;
+
+
+-- Artists Table
+
+CREATE TABLE IF NOT EXISTS stg_artists (
+    artist_id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    followers BIGINT NOT NULL CHECK (followers >= 0),
+    popularity INTEGER NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_stg_artists_name
+ON staging.stg_artists(name);
+
+
+-- Albums Table
+CREATE TABLE IF NOT EXISTS stg_albums (
+    album_id TEXT PRIMARY KEY,
+    main_artist_id TEXT NOT NULL,
+    name TEXT NOT NULL,
+    release_date DATE,
+    release_date_precision TEXT,
+    total_tracks INTEGER CHECK (total_tracks >= 0),
+    album_type TEXT NOT NULL,
+
+    CONSTRAINT fk_album_artist
+        FOREIGN KEY (main_artist_id)
+        REFERENCES staging.stg_artists(artist_id)
+        ON DELETE RESTRICT
+);
+
+CREATE INDEX IF NOT EXISTS idx_stg_albums
+ON staging.stg_albums(release_date);
+
+
+-- Tracks Table
+-- ==============================
+CREATE TABLE IF NOT EXISTS stg_tracks (
+    track_id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    artist_id TEXT NOT NULL,
+    album_id TEXT NOT NULL,
+    popularity INTEGER,
+    duration_ms INTEGER CHECK (duration_ms >= 0),
+    track_number INTEGER CHECK (track_number >= 1),
+    disc_number INTEGER CHECK (disc_number >= 1),
+    is_local BOOLEAN NOT NULL,
+
+    CONSTRAINT fk_track_artist
+        FOREIGN KEY (artist_id)
+        REFERENCES staging.stg_artists(artist_id)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_track_album
+        FOREIGN KEY (album_id)
+        REFERENCES staging.stg_albums(album_id)
+        ON DELETE RESTRICT
+);
+[2026-02-07T18:33:57.694+0000] {base.py:83} INFO - Using connection ID 'postgres_spotify_conn' for task execution.
+[2026-02-07T18:33:57.700+0000] {base.py:83} INFO - Using connection ID 'postgres_spotify_conn' for task execution.
+[2026-02-07T18:33:57.708+0000] {sql.py:450} INFO - Running statement: -- Create Database
+CREATE DATABASE spotify_db;
+
+CREATE SCHEMA IF NOT EXISTS staging;
+
+
+-- Artists Table
+
+CREATE TABLE IF NOT EXISTS stg_artists (
+    artist_id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    followers BIGINT NOT NULL CHECK (followers >= 0),
+    popularity INTEGER NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_stg_artists_name
+ON staging.stg_artists(name);
+
+
+-- Albums Table
+CREATE TABLE IF NOT EXISTS stg_albums (
+    album_id TEXT PRIMARY KEY,
+    main_artist_id TEXT NOT NULL,
+    name TEXT NOT NULL,
+    release_date DATE,
+    release_date_precision TEXT,
+    total_tracks INTEGER CHECK (total_tracks >= 0),
+    album_type TEXT NOT NULL,
+
+    CONSTRAINT fk_album_artist
+        FOREIGN KEY (main_artist_id)
+        REFERENCES staging.stg_artists(artist_id)
+        ON DELETE RESTRICT
+);
+
+CREATE INDEX IF NOT EXISTS idx_stg_albums
+ON staging.stg_albums(release_date);
+
+
+-- Tracks Table
+-- ==============================
+CREATE TABLE IF NOT EXISTS stg_tracks (
+    track_id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    artist_id TEXT NOT NULL,
+    album_id TEXT NOT NULL,
+    popularity INTEGER,
+    duration_ms INTEGER CHECK (duration_ms >= 0),
+    track_number INTEGER CHECK (track_number >= 1),
+    disc_number INTEGER CHECK (disc_number >= 1),
+    is_local BOOLEAN NOT NULL,
+
+    CONSTRAINT fk_track_artist
+        FOREIGN KEY (artist_id)
+        REFERENCES staging.stg_artists(artist_id)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_track_album
+        FOREIGN KEY (album_id)
+        REFERENCES staging.stg_albums(album_id)
+        ON DELETE RESTRICT
+);, parameters: None
+[2026-02-07T18:33:57.710+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/providers/common/sql/operators/sql.py", line 282, in execute
+    output = hook.run(
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/providers/common/sql/hooks/sql.py", line 398, in run
+    self._run_command(cur, sql_statement, parameters)
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/providers/common/sql/hooks/sql.py", line 455, in _run_command
+    cur.execute(sql_statement)
+psycopg2.errors.ActiveSqlTransaction: CREATE DATABASE cannot run inside a transaction block
+
+[2026-02-07T18:33:57.715+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=***_dbt_spotify_pipeline, task_id=create_spotify_db_and_staging_tables, execution_date=20260207T183352, start_date=20260207T183357, end_date=20260207T183357
+[2026-02-07T18:33:57.720+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 61 for task create_spotify_db_and_staging_tables (CREATE DATABASE cannot run inside a transaction block
+; 998)
+[2026-02-07T18:33:57.764+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-02-07T18:33:57.774+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check
